@@ -34,6 +34,7 @@ class Alfajor {
 
 class Caramelo {
 	var peso = 5
+	var property sabor = frutilla
 
 	method precio() { return 12 }
 	method peso() { return peso }
@@ -42,6 +43,16 @@ class Caramelo {
 	method libreGluten() { return true }
 }
 
+class CarameloCorazonDeChocolate inherits Caramelo {
+	// Con el overrido reemplazo, con el super accedo al método que se está redefiniendo
+	override method mordisco(){
+		super()
+		self.sabor(chocolate)
+	}
+
+	// Le sumo 1 peso al precio que viene heredado
+	override method precio()= super() + 1
+}
 
 class Chupetin {
 	var peso = 7
@@ -75,6 +86,21 @@ class Oblea {
 	method libreGluten() { return false }
 }
 
+class ObleasCrujientes inherits Oblea {
+	var cantidadDeMordiscos = 0
+	override method mordisco() {
+		cantidadDeMordiscos += 1
+		super()
+		if (cantidadDeMordiscos <= 3) {
+			peso -= 3
+		} 
+	}
+
+	method estaDebil()=
+		cantidadDeMordiscos > 3
+}
+
+
 class Chocolatin {
 	// hay que acordarse de *dos* cosas, el peso inicial y el peso actual
 	// el precio se calcula a partir del precio inicial
@@ -89,6 +115,21 @@ class Chocolatin {
 	method sabor() { return chocolate }
 	method libreGluten() { return false }
 
+}
+
+object heladeraDeMariano {
+	var property humedad = 0
+}
+
+class ChocolatinVip inherits Chocolatin {
+	method humedad()= heladeraDeMariano.humedad()
+	override method peso() =
+		super() * (1+self.humedad())
+}
+
+class ChocolatePremium inherits ChocolatinVip {
+	override method humedad()=
+		super() / 2
 }
 
 class GolosinaBaniada {
@@ -106,7 +147,6 @@ class GolosinaBaniada {
 	method libreGluten() { return golosinaInterior.libreGluten() }	
 }
 
-
 class Tuttifrutti {
 	var libreDeGluten
 	const sabores = [frutilla, chocolate, naranja]
@@ -120,3 +160,4 @@ class Tuttifrutti {
 	method libreGluten() { return libreDeGluten }	
 	method libreGluten(valor) { libreDeGluten = valor }
 }
+

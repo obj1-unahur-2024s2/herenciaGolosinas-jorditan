@@ -2,7 +2,7 @@ import golosinas.*
 
 object mariano {
 	const golosinas = []
-	 
+
 	method comprar(_golosina) { golosinas.add(_golosina) }
 	
 	method desechar (_golosina) { golosinas.remove(_golosina) }
